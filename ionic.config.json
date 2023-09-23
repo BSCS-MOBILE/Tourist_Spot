@@ -1,0 +1,7 @@
+{
+  "name": "Food_Services",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
