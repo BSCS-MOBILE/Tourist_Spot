@@ -7,6 +7,7 @@
   </template>
   
   <script setup lang="ts">
+  import { IonHeader, IonTitle, IonToolbar } from '@ionic/vue';
   defineProps({
     name: String,
   });
