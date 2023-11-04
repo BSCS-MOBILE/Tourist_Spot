@@ -17,9 +17,9 @@ const items = ref([
 ]);
 const route = useRoute()
 const id = route.params.id
-let productName = ref('');
-let price = ref(0);
-let image = ref('');
+let productName = '';
+let price = '';
+let image = '';
 
 items.value.forEach(item => {
  if(item.id.toString() === id.toString()) {

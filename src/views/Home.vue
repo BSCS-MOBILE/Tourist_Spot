@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, onIonViewWillEnter, onIonViewDidEnter, onIonViewWillLeave, onIonViewDidLeave} from '@ionic/vue';
 import ExploreContainer from '@/components/ExploreContainer.vue';
 import HeaderLayout from '../layout/HeaderLayout.vue'
 import ProductItem from '../components/ProductItem.vue'
@@ -19,5 +19,20 @@ const num = ref([
   {id: 2, productName: 'Puto Cake', price: '30.00', image:'/food2.png'},
   {id: 3, productName: 'Apple Cake', price: '60.00', image:'/food.jpg'}
 ]);
+onIonViewDidEnter(() => {
+      console.log('Home page did enter');
+    });
+
+    onIonViewDidLeave(() => {
+      console.log('Home page did leave');
+    });
+
+    onIonViewWillEnter(() => {
+      console.log('Home page will enter');
+    });
+
+    onIonViewWillLeave(() => {
+      console.log('Home page will leave');
+    });
 </script>
 
