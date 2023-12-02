@@ -2,7 +2,11 @@
   <ion-page>
     <ion-content :fullscreen="true">
       <header-layout name="Home"/>
-      <product-item v-for="n in num" :key="n.id" :product-name="n.productName" :price="n.price" :image="n.image" :id="n.id"/>
+      <div>{{ message }}</div>
+      <template v-if="products">
+        <!-- <product-item v-for="n in products" ref="num" :key="n.id" :product-name="n.productName" :price="n.price" :image="n.image" :id="n.id"/> -->
+        <div v-for="n in products" :key="n.id">{{ n.productName }}</div>
+      </template>
     </ion-content>
   </ion-page>
 </template>
@@ -11,22 +15,30 @@
 import { IonPage, IonContent, onIonViewWillEnter, onIonViewDidEnter, onIonViewWillLeave, onIonViewDidLeave} from '@ionic/vue';
 import HeaderLayout from '../layout/HeaderLayout.vue'
 import ProductItem from '../components/ProductItem.vue'
-import { ref } from 'vue'
-const num = ref([
-  {id: 1, productName: 'Cassava Cake', price: '50.00', image:'/food.jpg'},
-  {id: 2, productName: 'Puto Cake', price: '30.00', image:'/food2.png'},
-  {id: 3, productName: 'Apple Cake', price: '60.00', image:'/food.jpg'}
-]);
+import { ref, watchEffect } from 'vue'
+import axios from 'axios';
+let products = ref();
+let message = ref('hello');
 
-    onIonViewDidEnter(() => {
+watchEffect(async () => {
+  const data = await axios.get("http://localhost:3000/products");
+  products = data.data.data;
+  console.log(products)
+  message = ref("sample") ;
+})
+    onIonViewDidEnter(async() => {
       console.log('Home page did enter');
+      // const data = await axios.get("http://localhost:3000/products");
+      // products = data.data.data;
+      // console.log(products)
+      // message = ref("sample") ;
     });
-
+    
     onIonViewDidLeave(() => {
       console.log('Home page did leave');
     });
-
-    onIonViewWillEnter(() => {
+    
+    onIonViewWillEnter(async () => {
       console.log('Home page will enter');
     });
 
