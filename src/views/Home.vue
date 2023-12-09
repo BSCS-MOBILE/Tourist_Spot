@@ -3,7 +3,7 @@
     <ion-content :fullscreen="true">
       <header-layout name="Home"/>
       <template v-if="products">
-        <product-item v-for="n in products" ref="num" :key="n.id" :product-name="n.productName" :price="n.price" :image="n.image" :id="n.id"/>
+        <product-item v-for="n in products" ref="num" :key="n.id" :product-name="n.productName" :price="n.price" :image="url+n.image" :id="n.id"/>
       </template>
     </ion-content>
   </ion-page>
@@ -25,7 +25,8 @@ export default {
   },
   data () {
     return {
-      products: []
+      products: [],
+      url: "http://localhost:3000/photos/"
     }
   },
   created() {
@@ -38,27 +39,5 @@ export default {
     }
   }
 }
-// const store = useStore(key)
-// let products = [];
-// let message = ref('hello');
-// import axios from 'axios';
-
-// onIonViewWillEnter(async () => {
-//   console.log('Home page will enter');
-//   const data = await axios.get("http://localhost:3000/products");
-//   store.state.products = data.data.data;
-//   products = ref(store.state.products);
-// });
-//     onIonViewDidEnter(async() => {
-//       console.log('Home page did enter');
-//     });
-    
-//     onIonViewDidLeave(() => {
-//       console.log('Home page did leave');
-//     });
-  
-//     onIonViewWillLeave(() => {
-//       console.log('Home page will leave');
-//     });
 </script>
 

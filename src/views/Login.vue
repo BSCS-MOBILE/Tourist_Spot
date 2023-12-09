@@ -21,20 +21,40 @@
   </ion-page>
 </template>
 
-<script setup lang="ts">
+<script>
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonIcon, IonButton} from '@ionic/vue';
 import ExploreContainer from '@/components/ExploreContainer.vue';
 import HeaderLayout from '../layout/HeaderLayout.vue'
 import { mail, key } from "ionicons/icons"
+import axios from "axios"
 import { ref } from 'vue'
-let title = "BSCS4";
-let htmlContent = "<h1>Hello BSCS4</h1>";
-let email = ref('');
-let isWorld = false;
-function update() {
-  console.log(email)
-  
+
+export default {
+  name: "Login",
+  components: [
+  IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonIcon, IonButton,
+  HeaderLayout
+  ],
+  data () {
+    return {
+      email: "",
+      password: ""
+    }
+  },
+  created () {
+    this.submit()
+  },
+  methods: {
+    async submit () {
+      const data = await axios.post("http://localhost:3000/auth/login", {
+        email: this.email,
+        password: this.password
+      });
+      console.log(data);
+    }
+  }
 }
+
 </script>
 
 <style scoped>
