@@ -44,7 +44,9 @@ const Router = useRouter();
 const setOpen = (state: boolean) => {
   isOpen.value = state;
 };
-
+  if(localStorage.getItem('user')) {
+    location.href = 'home'
+  }
     async function submit () {
       if(email.value && password.value) {
         
