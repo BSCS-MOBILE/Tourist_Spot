@@ -13,9 +13,10 @@
           <ion-label>Dashboard</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab3" href="/login">
+        <ion-tab-button tab="tab3" @click="submit">
           <ion-icon aria-hidden="true" :icon="person" />
-          <ion-label>LogIn</ion-label>
+          <ion-label v-if="!isLoggedIn">LogIn</ion-label>
+          <ion-label v-if="isLoggedIn">LogOut</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
@@ -24,6 +25,18 @@
 
 <script setup lang="ts">
 import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet, onIonViewWillEnter } from '@ionic/vue';
-import { home, person, book } from 'ionicons/icons';
+import { home, person, book, logIn } from 'ionicons/icons';
 import { ref } from 'vue'
+
+const isLoggedIn = ref(false)
+if(localStorage.getItem('user')) {
+  isLoggedIn.value = true
+}
+
+function submit() {
+  if(isLoggedIn.value) {
+    isLoggedIn.value = false
+  }
+  location.href = '/login'
+}
 </script>

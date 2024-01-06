@@ -26,7 +26,7 @@ export default {
   data () {
     return {
       products: [],
-      url: "http://localhost:3000/photos/"
+      url: "http://localhost:3000/photos/product/"
     }
   },
   created() {

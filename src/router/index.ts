@@ -5,7 +5,7 @@ import TabsPage from '../views/TabsPage.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/home'
   },
   {
     path: '/',
@@ -25,14 +25,22 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'login',
+        name: 'login',
         component: () => import('@/views/Login.vue')
       },
       {
+        path: 'logout',
+        name: 'logout',
+        component: () => import('@/views/Logout.vue')
+      },
+      {
         path: 'register',
+        name: 'register',
         component: () => import('@/views/Register.vue')
       },
       {
         path: 'product-details/:id',
+        name: 'product-details',
         component: () => import('@/views/Details.vue')
       }
     ]
@@ -42,6 +50,11 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
+})
+router.beforeEach((to, from, next) => {
+  const user = localStorage.getItem('user')
+  if (to.name === 'product-details' && !user) next({ name: 'login', query: { redirect: to.fullPath } })
+  next()
 })
 
 export default router
