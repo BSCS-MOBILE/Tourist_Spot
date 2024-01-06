@@ -36,6 +36,7 @@ if(localStorage.getItem('user')) {
 function submit() {
   if(isLoggedIn.value) {
     isLoggedIn.value = false
+    localStorage.clear()
   }
   location.href = '/login'
 }

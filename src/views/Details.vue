@@ -7,27 +7,41 @@
     </div>
   </template>
 
-<script setup lang="ts">
+<script>
 import { useRoute } from 'vue-router'
 import { ref } from 'vue'
-const items = ref([
-  {id: 1, productName: 'Cassava Cake', price: '50.00', image:'/food.jpg'},
-  {id: 2, productName: 'Puto Cake', price: '30.00', image:'/food2.png'},
-  {id: 3, productName: 'Apple Cake', price: '60.00', image:'/food.jpg'}
-]);
-const route = useRoute()
-const id = route.params.id
-let productName = '';
-let price = '';
-let image = '';
+import axios from "axios"
 
-items.value.forEach(item => {
- if(item.id.toString() === id.toString()) {
-    productName = item.productName;
-    price = item.price;
-    image = item.image;
- }
-})
-
-
+export default {
+  name: 'Details',
+  data () {
+    return {
+      productName: '',
+      price: '',
+      image: '',
+    }
+  },
+  created() {
+    const route = useRoute()
+    console.log(route)
+    const id = route.params.id
+    console.log(id)
+    this.getProduct(id)
+  },
+  methods: {
+    getProduct(id) {
+      axios.get(`http://localhost:3000/products/${id}`)
+      .then(res => {
+        const item = res.data.data
+        console.log(item)
+        
+        this.productName = item.productName;
+        this.price = item.price;
+        this.image = `http://localhost:3000/photos/product/${item.image}`;
+      })
+      .catch((err) => {
+      }); 
+    }
+  }
+}
 </script>
