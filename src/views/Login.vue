@@ -59,7 +59,7 @@ const setOpen = (state: boolean) => {
             if(route && route.query.redirect) {
               location.href = String(route.query.redirect)
             } else {
-              Router.push({path: 'home'})
+              location.href = 'home'
             }
         }).catch((err) => {
             setOpen(true);
