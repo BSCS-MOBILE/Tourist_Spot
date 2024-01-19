@@ -2,8 +2,8 @@
   <ion-page>
     <ion-content :fullscreen="true">
       <header-layout name="Home"/>
-      <template v-if="products">
-        <product-item v-for="n in products" ref="num" :key="n.id" :product-name="n.productName" :price="n.price" :image="url+n.image" :id="n.id"/>
+      <template v-if="tourists">
+         <tourist-spot v-for="n in tourists" ref="num" :key="n.id" :tourist-name="n.touristName" :description="n.description" :price="n.price" :image="url+n.image" :id="n.id"/>
       </template>
     </ion-content>
   </ion-page>
@@ -12,7 +12,7 @@
 <script>
 import { IonPage, IonContent, } from '@ionic/vue';
 import HeaderLayout from '../layout/HeaderLayout.vue'
-import ProductItem from '../components/ProductItem.vue'
+import TouristSpot from '../components/TouristSpot.vue'
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '../store/store'
@@ -21,23 +21,22 @@ import axios from 'axios';
 export default {
   name: 'Home',
   components : {
-    IonPage, IonContent, HeaderLayout, ProductItem
+    IonPage, IonContent, HeaderLayout, TouristSpot
   },
   data () {
     return {
-      products: [],
+      tourists: [],
       url: "http://localhost:3000/photos/product/"
     }
   },
   created() {
-    this.getProducts()
+    this.getTourists()
   },
   methods: {
-    async getProducts() {
-      const data = await axios.get("http://localhost:3000/products");
-      this.products = data.data.data 
+    async getTourists() {
+      const data = await axios.get("http://localhost:3000/tourist");
+      this.tourists = data.data.data 
     }
   }
 }
 </script>
-

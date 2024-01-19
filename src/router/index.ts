@@ -21,6 +21,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'dashboard',
+        name: 'dashboard',
         component: () => import('@/views/Dashboad.vue')
       },
       {
@@ -34,8 +35,8 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/Register.vue')
       },
       {
-        path: 'product-details/:id',
-        name: 'product-details',
+        path: 'tourist-details/:id',
+        name: 'tourist-details',
         component: () => import('@/views/Details.vue')
       }
     ]
@@ -47,9 +48,15 @@ const router = createRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  const user = localStorage.getItem('user')
-  if (to.name === 'product-details' && !user) next({ name: 'login', query: { redirect: to.fullPath } })
-  next()
-})
+  const user = localStorage.getItem('user');
+
+ if ((to.name === 'tourist-details' || to.name === 'dashboard') && !user) {
+  next({ name: 'login', query: { redirect: to.fullPath } });
+} else {
+  next();
+}
+
+});
+
 
 export default router
